@@ -7,9 +7,9 @@ import {ProductStatus} from "./constants/productConstants.js";
 import DeleteList from "./components/DeleteList.jsx";
 
 const App = () => {
-    const [isMobile, setIsMobile] = useState(false);
-    const [isTablet, setisTablet] = useState(false);
     const [products, setProducts] = useState([]);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isTablet, setIsTablet] = useState(false);
 
     const fetchProducts = async () => {
         const res = await fetch("/api/products");
@@ -24,7 +24,7 @@ const App = () => {
 
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
-            setisTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+            setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
         };
 
         handleResize();
