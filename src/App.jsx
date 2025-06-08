@@ -7,6 +7,8 @@ import {ProductStatus} from "./constants/productConstants.js";
 import DeleteList from "./components/DeleteList.jsx";
 
 const App = () => {
+    const [isMobile, setIsMobile] = useState(false);
+    const [isTablet, setisTablet] = useState(false);
     const [products, setProducts] = useState([]);
 
     const fetchProducts = async () => {
@@ -16,7 +18,18 @@ const App = () => {
     };
 
     useEffect(() => {
-        fetchProducts();
+        fetchProducts().catch((err) => {
+            console.error("Ошибка при загрузке продуктов:", err);
+        });
+
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+            setisTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const createProduct = async (product) => {
@@ -65,26 +78,36 @@ const App = () => {
     };
 
     const activeProducts = products.filter((p) => p.status === ProductStatus.ACTIVE);
-    console.log("some log")
     const archivedProducts = products.filter((p) => p.status === ProductStatus.ARCHIVE);
     const deletedProducts = products.filter((p) => p.status === ProductStatus.DELETED);
+
+    const mainContent = (
+        <>
+            {isMobile && <ProductForm onCreate={createProduct} />}
+            <ProductList
+                products={activeProducts}
+                onArchive={archiveProduct}
+                onDelete={deleteProduct}
+            />
+            {isTablet && <ArchiveList products={archivedProducts} onRestore={restoreProduct} isMobile={isMobile} />}
+            {isTablet && <DeleteList products={deletedProducts} isMobile={isMobile} />}
+        </>
+    );
+
+    const sidebarContent = (
+        <>
+            {!isMobile && <ProductForm onCreate={createProduct} />}
+            {!isTablet && <ArchiveList products={archivedProducts} onRestore={restoreProduct} isMobile={isMobile} />}
+            {!isTablet && <DeleteList products={deletedProducts} isMobile={isMobile} />}
+        </>
+    );
 
     return (
         <div className="container">
             <h1 className="title">Склад товаров</h1>
             <div className="layout">
-                <div className="main">
-                    <ProductList
-                        products={activeProducts}
-                        onArchive={archiveProduct}
-                        onDelete={deleteProduct}
-                    />
-                </div>
-                <div className="sidebar">
-                    <ProductForm onCreate={createProduct} />
-                    <ArchiveList products={archivedProducts} onRestore={restoreProduct} />
-                    <DeleteList products={deletedProducts} />
-                </div>
+                <div className="main">{mainContent}</div>
+                <div className="sidebar">{sidebarContent}</div>
             </div>
         </div>
     );

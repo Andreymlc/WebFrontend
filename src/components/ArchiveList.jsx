@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const ArchiveList = ({ products, onRestore }) => {
-    const [isMobile, setIsMobile] = useState(false);
+const ArchiveList = ({ products, onRestore, isMobile }) => {
     const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 600);
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
     const renderList = () => {
         if (products.length === 0) {
@@ -35,6 +25,7 @@ const ArchiveList = ({ products, onRestore }) => {
     if (isMobile) {
         return (
             <section className="section">
+                <h2>Архив</h2>
                 {products.length > 0 && (
                     <button onClick={() => setShow(!show)} className="create-btn">
                         {show ? "Скрыть архив" : "Показать архив"}

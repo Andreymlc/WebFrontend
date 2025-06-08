@@ -17,7 +17,7 @@ body {
 }
 
 .title {
-  background-color: #006b09;
+  background-color: #005b6b;
   color: white;
   padding: 1rem;
   text-align: center;
@@ -29,16 +29,24 @@ body {
   background: white;
   padding: 1rem;
   margin-bottom: 1rem;
-  border: dashed 0.1rem #006b09;
+  border: dashed 0.1rem #005b6b;
   border-radius: 15px;
   box-shadow: 0.5em 1em 0.5em 0 rgba(64, 73, 59, 0.281);
 }
 
 .section h2 {
-  border-bottom: 2px solid #07b148;
+  border-bottom: 2px solid #34c8d8;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
 }
+
+.create-btn {
+  background-color: #005b6b;
+}
+.create-btn:hover {
+  background-color: #34c8d8;
+}
+
 
 input {
   display: block;
@@ -61,17 +69,10 @@ button {
 }
 
 .create-btn {
-  background-color: #006b09;
+  background-color: #005b6b;
 }
 .create-btn:hover {
-  background-color: #07b148;
-}
-
-.btns {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  flex-direction: column;
+  background-color: #34c8d8;
 }
 
 .delete-btn {
@@ -82,9 +83,16 @@ button {
   background-color: #A3AE9E;
 }
 
+.btns {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-direction: column;
+}
+
 .card {
   padding: 1rem;
-  border: dashed 0.1rem #006b09;
+  border: dashed 0.1rem #005b6b;
   border-radius: 15px;
   box-shadow: 0.5em 1em 0.5em 0 rgba(64, 73, 59, 0.281);
   background-color: white;
@@ -124,9 +132,7 @@ button {
     flex-direction: column;
     gap: 1rem;
   }
-}
 
-@media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -139,8 +145,6 @@ button {
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
-
-
 
   .card {
     background-color: white;
@@ -168,7 +172,7 @@ button {
 }
 
 .success-text {
-  background-color: #07b148;
+  background-color: #34c8d8;
   color: white;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;

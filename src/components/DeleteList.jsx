@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const DeleteList = ({ products }) => {
-    const [isMobile, setIsMobile] = useState(false);
+const DeleteList = ({ products, isMobile }) => {
     const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 600);
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
     const renderList = () => {
         if (products.length === 0) {
